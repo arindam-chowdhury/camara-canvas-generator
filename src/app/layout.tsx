@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { NextStepProvider, NextStep } from 'nextstepjs';
+import { steps } from "@/lib/steps";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +30,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        <Toaster />
+        <NextStepProvider>
+          <NextStep steps={steps}>
+            {children}
+          </NextStep>
+          <Toaster />
+        </NextStepProvider>
       </body>
     </html>
   );

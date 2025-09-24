@@ -16,7 +16,7 @@ import Hls from "hls.js";
 
 
 import { useNextStep } from 'nextstepjs';
-import { steps } from "@/lib/steps";
+import { useRouter } from "next/navigation";
 
 // Types for drawing
 type DrawingMode = "rectangle" | "square" | "polygon" | "none";
@@ -501,10 +501,12 @@ const DrawingCanvas = () => {
   }, [isWebcamAvailable]);
 
   const { startNextStep } = useNextStep();
+  const router = useRouter();
 
   return (
     <div className="flex flex-col items-center gap-4 p-4">
       <div className="flex flex-wrap justify-center gap-2">
+        <Button variant="outline" onClick={() => router.push("/ask-ai")}>Ask AI</Button>
         <Button variant="outline" onClick={() => startNextStep("mainTour")}>
            <Sparkles className="mr-2 h-4 w-4" /> Start the tour
         </Button>

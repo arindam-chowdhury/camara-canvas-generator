@@ -9,9 +9,14 @@ import {
   Trash2,
   Send,
   Triangle,
+  Sparkles,
 } from "lucide-react";
 import { toast } from "sonner";
 import Hls from "hls.js";
+
+
+import { useNextStep } from 'nextstepjs';
+import { steps } from "@/lib/steps";
 
 // Types for drawing
 type DrawingMode = "rectangle" | "square" | "polygon" | "none";
@@ -495,10 +500,16 @@ const DrawingCanvas = () => {
     }
   }, [isWebcamAvailable]);
 
+  const { startNextStep } = useNextStep();
+
   return (
     <div className="flex flex-col items-center gap-4 p-4">
       <div className="flex flex-wrap justify-center gap-2">
+        <Button variant="outline" onClick={() => startNextStep("mainTour")}>
+           <Sparkles className="mr-2 h-4 w-4" /> Start the tour
+        </Button>
         <Button
+          id="step1"
           variant={drawingMode === "rectangle" ? "secondary" : "outline"}
           onClick={() => setDrawingMode("rectangle")}
         >
@@ -511,12 +522,13 @@ const DrawingCanvas = () => {
           <Square className="mr-2 h-4 w-4" /> Square
         </Button> */}
         <Button
+          id="step2"
           variant={drawingMode === "polygon" ? "secondary" : "outline"}
           onClick={() => setDrawingMode("polygon")}
         >
           <Triangle className="mr-2 h-4 w-4" /> Polygon
         </Button>
-        <Button variant="outline" onClick={selectWholeArea}>
+        <Button id="step3" variant="outline" onClick={selectWholeArea}>
           <Expand className="mr-2 h-4 w-4" /> Whole Area
         </Button>
         <Button variant="destructive" onClick={() => setShapes([])}>
